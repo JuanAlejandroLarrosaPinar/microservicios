@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.formacionbdi.springboot.app.item.models.Item;
 import com.formacionbdi.springboot.app.item.models.Producto;
 
-@Service
+@Service("serviceRestTemplate")
 public class ItemServiceImpl implements ItemService {
 
 	@Autowired
@@ -21,7 +21,9 @@ public class ItemServiceImpl implements ItemService {
 	
 	@Override
 	public List<Item> findAll() {
-		String endPoint = "http://localhost:8001/listar";
+		//Utilizamos el nombre del servicio porque en el properties hemos establecido el servicio de products
+		//String endPoint = "http://localhost:8001/listar";
+		String endPoint = "http://servicio-productos/listar";
 		List<Producto> productos = 
 				Arrays.asList(clienteRest.getForObject(endPoint, Producto[].class));
 		return productos.stream().map(p -> new Item(p, 1)).collect(Collectors.toList());
@@ -31,7 +33,9 @@ public class ItemServiceImpl implements ItemService {
 	public Item findById(Long id, int cantidad) {
 		Map<String, String> pathVariables = new HashMap<>();
 		pathVariables.put("id", id.toString());
-		String endPoint = "http://localhost:8001/ver/{id}";
+		//Utilizamos el nombre del servicio porque en el properties hemos establecido el servicio de products
+		//String endPoint = "http://localhost:8001/ver/{id}";
+		String endPoint = "http://servicio-productos/ver/{id}";
 		Producto producto = clienteRest.getForObject(endPoint, Producto.class, pathVariables);
 		return new Item(producto, cantidad);
 	}

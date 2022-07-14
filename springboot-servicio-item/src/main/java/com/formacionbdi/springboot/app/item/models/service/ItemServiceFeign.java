@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.formacionbdi.springboot.app.item.clientes.ProductoClienteRest;
 import com.formacionbdi.springboot.app.item.models.Item;
 
-@Service
-@Primary
+@Service("serviceFeign")
+//@Primary //Si le damos un nombre al servicio podemos inyectar esta implementación a través de @Qualifier
 public class ItemServiceFeign implements ItemService{
 
 	@Autowired

@@ -50,14 +50,14 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 		
-		<!-- INI Para utilizar ribbon añadimos dependencia -->
+		<!-- INI Para utilizar ribbon aniadimos dependencia -->
 		<!-- #Lo comentamos para utilizar el balanceo de carga de eureka. 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
 		</dependency>
 		-->
-		<!-- FIN Para utilizar ribbon añadimos dependencia -->
+		<!-- FIN Para utilizar ribbon aniadimos dependencia -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>

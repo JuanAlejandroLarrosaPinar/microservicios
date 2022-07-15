@@ -62,6 +62,14 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
+		
+		<!-- INI Hystrix. Solo disponible para versiones anteriores de spring -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+		<!-- FIN Hystrix. Solo disponible para versiones anteriores de spring -->
+		
 	</dependencies>
 
 	<build>

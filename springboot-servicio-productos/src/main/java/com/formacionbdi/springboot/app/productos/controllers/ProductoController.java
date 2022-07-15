@@ -42,11 +42,12 @@ public class ProductoController {
 		int port = Integer.parseInt(env.getProperty("local.server.port").toString());
 		p.setPort(port);
 		
+		/*Lo comentamos para utilizar zuul.
 		try {
 			Thread.sleep(2000L);
 		}catch(InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		boolean ok = false;
 		if(!ok) {

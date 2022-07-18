@@ -49,6 +49,13 @@ public class ProductoController {
 			e.printStackTrace();
 		}*/
 		
+		//lo volvemos a descomentar para probar timeout con zuul
+		try {
+			Thread.sleep(2000L);
+		}catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		boolean ok = false;
 		if(!ok) {
 		//	throw new RuntimeException("¡No se pudo cargar el producto!");

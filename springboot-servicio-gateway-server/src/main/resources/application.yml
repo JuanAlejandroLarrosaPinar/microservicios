@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: servicio-productos
+        uri: lb://servicio-productos
+        predicates:
+          - Path=/api/productos/**
+        filters:
+          - StripPrefix=2 #porque esta compuesto por 2 segmentos, api y productos
+      - id: servicio-item
+        uri: lb://servicio-item
+        predicates:
+          - Path=/api/item/**
+        filters:
+          - StripPrefix=2 #porque esta compuesto por 2 segmentos, api e item
+        
+        
+          
+      

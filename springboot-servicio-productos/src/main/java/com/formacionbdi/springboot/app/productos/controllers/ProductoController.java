@@ -29,8 +29,8 @@ public class ProductoController {
 	public List<Producto> listar(){
 		return productoService.findAll().stream().map(p->{
 			//Se sustituye esta manera de obtener la property server.port
-			//p.setPort(Integer.parseInt(env.getProperty("local.server.port").toString()));
-			p.setPort(port);
+			p.setPort(Integer.parseInt(env.getProperty("local.server.port").toString()));
+			//p.setPort(port);
 			return p;
 		}).collect(Collectors.toList());
 	}

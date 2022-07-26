@@ -6,6 +6,12 @@ spring:
         uri: lb://servicio-productos
         predicates:
           - Path=/api/productos/**
+          #- Header= token, \d+ #hay que enviar en header el token que sea por ejemplo 1234
+          #- Header=Content-Type, application/json #hay que enviar en el header el content type.
+          - Method=GET, POST
+          #- Query=color, verde #en params (desde postman añadimos el parametro color con valor verde)
+          #- Query=color #así el estamos indicando que acepta cualquier valor
+          #- Cookie=color, azul #creamos la cookie del estilo color=azul; Path=/api/productos/;
         filters:
           - StripPrefix=2 #porque esta compuesto por 2 segmentos, api y productos
           #- name: Ejemplo

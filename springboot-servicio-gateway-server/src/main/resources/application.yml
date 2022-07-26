@@ -21,6 +21,10 @@ spring:
           - Path=/api/item/**
         filters:
           - StripPrefix=2 #porque esta compuesto por 2 segmentos, api e item
+          - AddRequestHeader=token-request, 1234567 #filtro propio de spring gateway
+          - AddResponseHeader=token-response, 12345678 #filtro propio de spring gateway
+          - SetResponseHeader=Content-Type, text/plain #esta linea y la linea de EjemploGlobalFilter exchange.getResponse().getHeaders().setContentType(MediaType.TEXT_PLAIN); realizan la misma función
+          - AddRequestParameter=nombre, andres
         
         
           

@@ -2,10 +2,14 @@ package com.formacionbdi.springboot.app.item.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.formacionbdi.springboot.app.item.models.Item;
@@ -15,6 +19,8 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 public class ItemController {
+	
+	private Logger logger = LoggerFactory.getLogger(ItemController.class);
 
 	@Autowired
 	//@Qualifier("serviceFeign")
@@ -22,7 +28,9 @@ public class ItemController {
 	private ItemService itemService;
 	
 	@GetMapping("/listar")
-	public List<Item> listar(){
+	public List<Item> listar(@RequestParam(name="nombre") String nombre, @RequestHeader(name="token-request") String tokenRequest){
+		logger.info(String.format("Nombre %s", nombre));
+		logger.info(String.format("Token- request %s", tokenRequest));
 		return itemService.findAll();
 	}
 	

@@ -26,17 +26,18 @@ public class EjemploGlobalFilter implements GlobalFilter, Ordered{
 			//aquí va el post
 			log.info("ejecutando filtro post");
 			Optional.ofNullable(exchange.getRequest().getHeaders().getFirst("token")).ifPresent(valor->{
-				//exchange.getResponse().getHeaders().add("token", valor);
+				exchange.getResponse().getHeaders().add("token", valor);
 			});;
-			//exchange.getResponse().getCookies().add("color", ResponseCookie.from("color", "rojo").build());
-			//exchange.getResponse().getHeaders().setContentType(MediaType.TEXT_PLAIN);
+			exchange.getResponse().getCookies().add("color", ResponseCookie.from("color", "rojo").build());
+			exchange.getResponse().getHeaders().setContentType(MediaType.TEXT_PLAIN);
 		}));
 	}
 	
 	@Override
 	public int getOrder() {
 		//Podriamos tener muchos filtros globales. 
-		return -1; //le da una precedencia, más importante
+		return 1; //le da una precedencia, más importante
+		//si lo dejamos como -1 se produce un error
 	}
 
 }

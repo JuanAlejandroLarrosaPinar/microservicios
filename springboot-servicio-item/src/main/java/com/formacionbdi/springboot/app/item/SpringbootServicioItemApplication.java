@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients //con esta anotación utilizamos la alternativa a RestTemplate, que es Feign
 @EnableEurekaClient
-@EnableCircuitBreaker//hystrix
+//@EnableCircuitBreaker//hystrix //Lo comentamos para utilizar resilience4j
 public class SpringbootServicioItemApplication {
 
 	public static void main(String[] args) {

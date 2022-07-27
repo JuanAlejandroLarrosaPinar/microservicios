@@ -7,7 +7,10 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<!-- INI Para utilizar ribbon como balanceo de carga hay que bajar la versión de spring -->
 		<!-- <version>2.7.1</version>-->
-		<version>2.3.12.RELEASE</version>
+		<!-- INI Para utilizar resilience4j hay que volver a la versión 2.5.3 -->
+		<!-- <version>2.3.12.RELEASE</version> -->
+		<version>2.5.3</version>
+		<!-- FIN Para utilizar resilience4j hay que volver a la versión 2.5.3 -->
 		<!-- FIN Para utilizar ribbon como balanceo de carga hay que bajar la versión de spring -->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
@@ -19,7 +22,10 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<!-- INI Para utilizar ribbon como balanceo de carga hay que bajar la versión de spring cloud -->
-		<spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+		<!-- INI Para utilizar reslience4j hay que subir la versión de spring.cloud, en este caso a 2020.0.3-->
+		<!-- <spring-cloud.version>Hoxton.SR12</spring-cloud.version> -->
+		<spring-cloud.version>2020.0.3</spring-cloud.version>
+		<!-- FIN Para utilizar reslience4j hay que subir la versión de spring.cloud, en este caso a 2020.0.3-->
 		<!-- FIN Para utilizar ribbon como balanceo de carga hay que bajar la versión de spring cloud -->
 	</properties>
 	<dependencies>
@@ -64,12 +70,25 @@
 		</dependency>
 		
 		<!-- INI Hystrix. Solo disponible para versiones anteriores de spring -->
+		<!-- 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
 		</dependency>
+		-->
 		<!-- FIN Hystrix. Solo disponible para versiones anteriores de spring -->
-		
+		<!-- INI esta dependencia se añade cuando añadimos el starter de bootstrap. La modificamos a mano,
+		de spring-cloud-starter a spring-cloud-starter-bootstrap -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+		<!-- FIN esta dependencia se añade cuando añadimos el starter de bootstrap. La modificamos a mano,
+		de spring-cloud-starter a spring-cloud-starter-bootstrap -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -78,6 +97,13 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- INI - Workaround que añadimos para poder compilar el proyecto -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+			</plugin>
+			<!-- FIN - Workaround que añadimos para poder compilar el proyecto -->
 		</plugins>
 	</build>
 

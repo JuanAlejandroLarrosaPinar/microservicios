@@ -37,11 +37,6 @@ public class ProductoController {
 	
 	@GetMapping("/ver/{id}")
 	public Producto detalle(@PathVariable Long id) {
-		
-		if(id.equals(10L)) {
-			throw new IllegalStateException("Producto no encontrado");
-		}
-		
 		//Se sustituye esta manera de obtener la property server.port
 		Producto p = productoService.findById(id);
 		int port = Integer.parseInt(env.getProperty("local.server.port").toString());

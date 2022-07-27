@@ -42,6 +42,13 @@ public class Producto {
 	public void setPort(Integer port) {
 		this.port = port;
 	}
+	@Override
+	public String toString() {
+		return "Producto [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", createAt=" + createAt + ", port="
+				+ port + "]";
+	}
+	
+	
 	
 	
 }

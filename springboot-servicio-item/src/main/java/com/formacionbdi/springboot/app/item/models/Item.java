@@ -33,4 +33,11 @@ public class Item {
 		return producto.getPrecio() * cantidad;
 	}
 
+	@Override
+	public String toString() {
+		return "Item [producto=" + producto + ", cantidad=" + cantidad + "]";
+	}
+	
+	
+
 }

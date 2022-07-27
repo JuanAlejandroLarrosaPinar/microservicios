@@ -1,6 +1,7 @@
 package com.formacionbdi.springboot.app.productos.controllers;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,17 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/ver/{id}")
-	public Producto detalle(@PathVariable Long id) {
+	public Producto detalle(@PathVariable Long id) throws InterruptedException {
+		if(id.equals(10L)) {
+			throw new IllegalStateException("Producto no encontrado!");
+		}
+		
+		if(id.equals(7L)) {
+			TimeUnit.SECONDS.sleep(5l);
+		}
+		
+		
+		
 		//Se sustituye esta manera de obtener la property server.port
 		Producto p = productoService.findById(id);
 		int port = Integer.parseInt(env.getProperty("local.server.port").toString());
@@ -50,11 +61,11 @@ public class ProductoController {
 		}*/
 		
 		//lo volvemos a descomentar para probar timeout con zuul
-		try {
+		/*try {
 			Thread.sleep(2000L);
 		}catch(InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		boolean ok = false;
 		if(!ok) {

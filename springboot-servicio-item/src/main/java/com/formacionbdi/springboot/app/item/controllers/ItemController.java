@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.formacionbdi.springboot.app.item.models.Item;
 import com.formacionbdi.springboot.app.item.models.Producto;
 import com.formacionbdi.springboot.app.item.models.service.ItemService;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand; //Lo comentamos para poder utilizar Resilience4j
 
 @RestController
@@ -51,6 +53,16 @@ public class ItemController {
 		, e->
 			metodoAlternativo(id, cantidad, e)
 		);
+		//return itemService.findById(id, cantidad);
+	}
+	
+	@CircuitBreaker(name = "items", fallbackMethod = "metodoAlternativo") //pillará el del fichero de application.yml
+	@CrossOrigin
+	@GetMapping("/ver2/{id}/cantidad/{cantidad}")
+	public Item detalle2(@PathVariable Long id, @PathVariable Integer cantidad) {
+		Item i = itemService.findById(id, cantidad);
+		logger.info("i: "+ i);
+		return i;
 		//return itemService.findById(id, cantidad);
 	}
 	

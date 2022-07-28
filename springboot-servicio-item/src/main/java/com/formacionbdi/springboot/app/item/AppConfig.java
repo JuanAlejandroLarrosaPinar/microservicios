@@ -32,7 +32,12 @@ public class AppConfig {
 					.slidingWindowSize(10) //cada diez peticiones mal
 					.failureRateThreshold(50) //si el 50% se produce un error, entonces abre el circuito para que este servicio no responda
 					.waitDurationInOpenState(Duration.ofSeconds(10l))//tras 10 llamadas en estado abierto, se pasa al estado semiabierto
-					.build()).timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(2l)).build()).build();
+					.permittedNumberOfCallsInHalfOpenState(5)
+					//INI Llamadas lentas
+					.slowCallRateThreshold(50) //Indicamos que si el 50% de las peticiones tardan más de 2 segundos (siguiente parametro)
+					.slowCallDurationThreshold(Duration.ofSeconds(2L))//se considera llamada lenta y a la siguiente del 50% se pasa por el metodo alternativo
+					//FIN Llamadas lentas
+					.build()).timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(6L)).build()).build();
 		});
 		
 		

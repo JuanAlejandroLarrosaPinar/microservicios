@@ -1,6 +1,7 @@
 package com.formacionbdi.springboot.app.item.controllers;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import com.formacionbdi.springboot.app.item.models.Producto;
 import com.formacionbdi.springboot.app.item.models.service.ItemService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 //import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand; //Lo comentamos para poder utilizar Resilience4j
 
 @RestController
@@ -66,10 +68,23 @@ public class ItemController {
 		//return itemService.findById(id, cantidad);
 	}
 	
+	@CircuitBreaker(name = "items", fallbackMethod = "metodoAlternativo2") //pillará el del fichero de application.yml
+	@TimeLimiter(name = "items", fallbackMethod = "metodoAlternativo2")
+	@GetMapping("/ver3/{id}/cantidad/{cantidad}")
+	public CompletableFuture<Item> detalle3(@PathVariable Long id, @PathVariable Integer cantidad) {
+		return CompletableFuture.supplyAsync(()-> itemService.findById(id, cantidad));
+	}
+	
 	public Item metodoAlternativo(Long id, Integer cantidad, Throwable e) {
 		logger.info("Error: " + e.getMessage());
 		Item itemDefecto = getItemDefecto(id, cantidad);
 		return itemDefecto;
+	}
+	
+	public CompletableFuture<Item> metodoAlternativo2(Long id, Integer cantidad, Throwable e) {
+		logger.info("Error: " + e.getMessage());
+		Item itemDefecto = getItemDefecto(id, cantidad);
+		return CompletableFuture.supplyAsync(()->itemDefecto);
 	}
 	
 	private Item getItemDefecto(Long id, Integer cantidad) {

@@ -31,8 +31,8 @@ public class AppConfig {
 					.circuitBreakerConfig(CircuitBreakerConfig.custom()
 					.slidingWindowSize(10) //cada diez peticiones mal
 					.failureRateThreshold(50) //si el 50% se produce un error, entonces abre el circuito para que este servicio no responda
-					.waitDurationInOpenState(Duration.ofSeconds(10L))
-					.build()).timeLimiterConfig(TimeLimiterConfig.ofDefaults()).build();
+					.waitDurationInOpenState(Duration.ofSeconds(10l))//tras 10 llamadas en estado abierto, se pasa al estado semiabierto
+					.build()).timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(2l)).build()).build();
 		});
 		
 		
